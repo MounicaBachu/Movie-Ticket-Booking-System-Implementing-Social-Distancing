@@ -1,0 +1,20 @@
+DROP TRIGGER IF EXISTS upd_seat_price;
+
+DELIMITER $$
+
+CREATE TRIGGER upd_seat_price BEFORE INSERT ON SEAT FOR EACH ROW 
+BEGIN
+
+	IF NEW.ROW_No = 'A' OR NEW.ROW_No = 'B' THEN
+		SET NEW.SEAT_price = 20;
+	ELSE 
+		IF NEW.ROW_No = 'C' OR NEW.ROW_No = 'D' THEN
+			SET NEW.SEAT_price = 15;
+		ELSE
+			SET NEW.SEAT_price = 10;
+		END IF;
+	END IF;
+
+END$$
+
+DELIMITER ;
